@@ -1,0 +1,3 @@
+[2025-06-18 10:15:22] user=test@example.com file=shell.php ip=127.0.0.1
+[2025-06-18 10:18:45] user=admin@lab.local file=invoice.pdf ip=127.0.0.1
+[2025-06-15 20:14:27] user= file=index_hacker_complete.php ip=172.18.0.1

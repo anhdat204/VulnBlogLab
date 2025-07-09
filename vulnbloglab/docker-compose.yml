@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: vulnbloglab-web
+    ports:
+      - "8000:80"
+    volumes:
+      - ./public:/var/www/html
+      - ./includes:/var/www/includes
+      - ./logs:/var/www/logs
+    depends_on:
+      - db
+    environment:
+      - APP_ENV=development
+      - DB_HOST=db
+      - DB_NAME=vulnlab
+      - DB_USER=root
+      - DB_PASS=toor
+
+  db:
+    image: mysql:5.7
+    container_name: vulnbloglab-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: vulnlab
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=toor
+
+volumes:
+  db_data: {}
